@@ -188,4 +188,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # aliases
-alias tmux_project="~/dotfiles/scripts/tmux_project.sh"
+# switch between sessions
+alias ts="~/dotfiles/scripts/tmux_switch_session.sh"
