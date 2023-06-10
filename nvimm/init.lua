@@ -93,14 +93,18 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
+--  {
+--    -- Theme inspired by Atom
+--    'navarasu/onedark.nvim',
+--    priority = 1000,
+--    config = function()
+--      vim.cmd.colorscheme 'onedark'
+--    end,
+--  },
+
+
+  -- catppuccin theme
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   {
     -- Set lualine as statusline
@@ -109,7 +113,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'catppuccin',
         component_separators = '|',
         section_separators = '',
       },
@@ -154,7 +158,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-
+  -- neogit, nvim's alternative to magit
   { 'TimUntersberger/neogit', dependencies = 'nvim-lua/plenary.nvim' },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -211,6 +215,9 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- Set catppuccin theme
+vim.cmd.colorscheme "catppuccin"
 
 -- [[ Basic Keymaps ]]
 
