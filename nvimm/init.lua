@@ -160,6 +160,18 @@ require('lazy').setup({
   },
   -- neogit, nvim's alternative to magit
   { 'TimUntersberger/neogit', dependencies = 'nvim-lua/plenary.nvim' },
+
+  -- nvim-tree, file explorer 
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup {}
+    end,
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -482,6 +494,10 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- [[ Custom keymaps ]]
+-- nvim-tree
+vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<cr>", {silent = true, noremap = true})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
