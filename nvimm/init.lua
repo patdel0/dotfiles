@@ -497,7 +497,10 @@ cmp.setup {
 
 -- [[ Custom keymaps ]]
 -- nvim-tree:
-vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<cr>", {silent = true, noremap = true, desc = "Toggle NvimTree"})
+vim.keymap.set("n", "<leader>op", ":NvimTreeToggle<cr>", {silent = true, noremap = true, desc = "Toggle NvimTree"})
+
+-- neogit init:
+vim.keymap.set("n", "<leader>gg", ":Neogit<cr>", {silent = true, noremap = true, desc = "Activate Neogit"})
 
 -- [ Panes ]
 -- Navigate between panes using leader + w + hjkl
@@ -524,5 +527,7 @@ vim.keymap.set('n', '<leader>ws', ':lua SplitAndSearchFiles(false)<CR>', {norema
 -- Close the current pane 
 vim.keymap.set('n', '<leader>wc', ':close<CR>', {noremap = true, silent = true, desc = "Close pane"})
 
+-- Go back to previous file
+vim.keymap.set('n', '<leader>bk', ':e #<CR>', {noremap = true, silent = true, desc = "Go back to previous file"})
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
