@@ -496,8 +496,8 @@ cmp.setup {
 }
 
 -- [[ Custom keymaps ]]
--- nvim-tree
-vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<cr>", {silent = true, noremap = true})
+-- nvim-tree:
+vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<cr>", {silent = true, noremap = true, desc = "Toggle NvimTree"})
 
 -- [ Panes ]
 -- Navigate between panes using leader + w + hjkl
