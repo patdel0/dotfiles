@@ -35,7 +35,7 @@ manage_tmux_session() {
     if tmux has-session -t "${repo_name}" 2>/dev/null; then
         tmux switch-client -t "${repo_name}"
     else
-        tmux new-session -d -s "${repo_name}" "cd ${selected_repo} && nvim"
+        tmux new-session -d -c "${selected_repo}" -s "${repo_name}" "nvim"
         tmux switch-client -t "${repo_name}"
     fi
 }
