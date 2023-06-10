@@ -499,5 +499,30 @@ cmp.setup {
 -- nvim-tree
 vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<cr>", {silent = true, noremap = true})
 
+-- [ Panes ]
+-- Navigate between panes using leader + w + hjkl
+vim.keymap.set('n', '<leader>wh', '<C-w>h', {noremap = true, silent = true, desc = "Navigate left pane"})
+vim.keymap.set('n', '<leader>wj', '<C-w>j', {noremap = true, silent = true, desc = "Navigate down pane"})
+vim.keymap.set('n', '<leader>wk', '<C-w>k', {noremap = true, silent = true, desc = "Navigate up pane"})
+vim.keymap.set('n', '<leader>wl', '<C-w>l', {noremap = true, silent = true, desc = "Navigate right pane"})
+
+function SplitAndSearchFiles(is_vertical)
+  if is_vertical then
+    vim.cmd('split')
+  else
+    vim.cmd('vsplit')
+  end
+  vim.cmd('Telescope find_files')
+end
+
+-- Create new pane vertically and search files 
+vim.keymap.set('n', '<leader>wv', ':lua SplitAndSearchFiles(true)<CR>', {noremap = true, silent = true, desc = "Vertical split and search files"})
+
+-- Create new pane horizontally and search files
+vim.keymap.set('n', '<leader>ws', ':lua SplitAndSearchFiles(false)<CR>', {noremap = true, silent = true, desc = "Horizontal split and search files"})
+
+-- Close the current pane 
+vim.keymap.set('n', '<leader>wc', ':close<CR>', {noremap = true, silent = true, desc = "Close pane"})
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
