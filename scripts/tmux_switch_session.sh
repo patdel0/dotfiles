@@ -1,20 +1,9 @@
 #!/bin/bash
-
-cache_file="$HOME/.git_repo_cache"
-
-create_cache_file() {
-    # Find all git repositories in ~/code and its children
-    git_repos=$(find ~/code -type d -exec test -e '{}/.git' ';' -prune -print)
-    echo "${git_repos}" > "${cache_file}"
-}
-
-read_cache_file() {
-    git_repos=$(cat "${cache_file}")
-}
+source $(dirname $0)/tmux_project_cache_manager.sh
 
 select_repo() {
     # Select a git repository using fzf [fuzzy find]
-    selected_repo=$(echo "${git_repos}" | fzf)
+    selected_repo=$(read_cache_file | fzf)
 }
 
 check_selection() {
@@ -41,11 +30,8 @@ manage_tmux_session() {
 }
 
 main() {
-    # Check if the cache file exists, if not, create it
     if [ ! -f "${cache_file}" ]; then
         create_cache_file
-    else
-        read_cache_file
     fi
 
     select_repo
