@@ -519,10 +519,10 @@ function SplitAndSearchFiles(is_vertical)
 end
 
 -- Create new pane vertically and search files 
-vim.keymap.set('n', '<leader>wv', ':lua SplitAndSearchFiles(true)<CR>', {noremap = true, silent = true, desc = "Vertical split and search files"})
+vim.keymap.set('n', '<leader>wv', ':lua SplitAndSearchFiles(false)<CR>', {noremap = true, silent = true, desc = "Vertical split and search files"})
 
 -- Create new pane horizontally and search files
-vim.keymap.set('n', '<leader>ws', ':lua SplitAndSearchFiles(false)<CR>', {noremap = true, silent = true, desc = "Horizontal split and search files"})
+vim.keymap.set('n', '<leader>ws', ':lua SplitAndSearchFiles(true)<CR>', {noremap = true, silent = true, desc = "Horizontal split and search files"})
 
 -- Close the current pane 
 vim.keymap.set('n', '<leader>wc', ':close<CR>', {noremap = true, silent = true, desc = "Close pane"})
