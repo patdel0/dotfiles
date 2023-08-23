@@ -1,5 +1,5 @@
 #!/bin/bash
-source $(dirname $0)/project_cache_manager.sh
+source $(dirname $0)/cache_manager.sh
 
 select_repo() {
 	selected_repo=$(read_cache_file | fzf)
