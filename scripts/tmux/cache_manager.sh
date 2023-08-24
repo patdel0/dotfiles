@@ -4,7 +4,7 @@ cache_file="$HOME/.git_repo_cache"
 
 create_cache_file() {
 	# Find all git repositories in ~/code and its children
-	git_repos=$(find ~/code -type d -exec test -e '{}/.git' ';' -prune -print)
+	git_repos=$(find ~/code/github.com/ -type d -exec test -e "{}"/.git ';' -prune -print)
 	echo "${git_repos}" >"${cache_file}"
 }
 

@@ -16,9 +16,10 @@ get_repo_name() {
 	repo_name=$(basename "${selected_repo}")
 }
 
-manage_tmux_session() {
+manage_session() {
 	if ! tmux has-session -t "${repo_name}" 2>/dev/null; then
 		tmux new-session -d -c "${selected_repo}" -s "${repo_name}" "nvim"
+		tmux new-window -t "zsh" -n "zsh"
 	fi
 	tmux switch-client -t "${repo_name}"
 }
@@ -31,7 +32,7 @@ main() {
 	select_repo
 	check_selection
 	get_repo_name
-	manage_tmux_session
+	manage_session
 }
 
 main
