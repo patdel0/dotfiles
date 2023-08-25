@@ -1,4 +1,11 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Coding
+vim.keymap.set(
+  "n",
+  "<leader>gd",
+  "<cmd>lua vim.lsp.buf.definition()<CR>",
+  { noremap = true, silent = true, desc = "Go to definition" }
+)
 
 -- Window management
 vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true, desc = "Switch window left" })
