@@ -3,8 +3,8 @@
 cache_file="$HOME/.git_repo_cache"
 
 create_cache_file() {
-	# Find all git repositories in ~/code and its children
-	git_repos=$(find ~/code/github.com/ -type d -exec test -e "{}"/.git ';' -prune -print)
+	# Find all git repositories in ~/code and its children, store only the repository names
+	git_repos=$(find ~/code/github.com/ -type d -exec test -e "{}"/.git ';' -prune -print | sed 's!.*/!!')
 	echo "${git_repos}" >"${cache_file}"
 }
 

@@ -1,192 +1,105 @@
-# shellcheck disable=SC2148
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-if [[ "$(uname -m)" == "arm64" ]] || [[ "$(sysctl -in sysctl.proc_translated)" == "1" ]]; then
-  if command -v /usr/local/bin/brew >/dev/null 2>&1; then
-    eval "$(/usr/local/bin/brew shellenv)"
-    FPATH=$(/usr/local/bin/brew --prefix)/share/zsh/site-functions:$FPATH
-    alias ibrew='arch -x86_64 /usr/local/bin/brew'
-  fi
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
-  if command -v /opt/homebrew/bin/brew >/dev/null 2>&1; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    FPATH=$(/opt/homebrew/bin/brew --prefix)/share/zsh/site-functions:$FPATH
-  fi
-else
-  if command -v /usr/local/bin/brew >/dev/null 2>&1; then
-    eval "$(/usr/local/bin/brew shellenv)"
-    FPATH=$(/usr/local/bin/brew --prefix)/share/zsh/site-functions:$FPATH
-  fi
-fi
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
 
-HISTFILE=$HOME/.histfile
-HISTSIZE=999999999
-# shellcheck disable=SC2034
-SAVEHIST=$HISTSIZE
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# shellcheck disable=SC2034
-WORDCHARS=''
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-ZSH_CACHE_DIR=$HOME/.zcache
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
 
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir -p "$ZSH_CACHE_DIR"
-fi
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushdminus
+# Uncomment the following line to change how often to auto-update (in days).
+zstyle ':omz:update' frequency 13
 
-setopt interactivecomments
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
-setopt hist_find_no_dups
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-setopt hist_reduce_blanks
-setopt hist_save_no_dups
-setopt share_history
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-setopt always_to_end
-setopt auto_menu
-setopt complete_in_word
-unsetopt flowcontrol
-unsetopt menu_complete
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-zmodload -i zsh/complist
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*' special-dirs true
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
-zstyle ':completion::complete:*' use-cache true
-zstyle ':completion::complete:*' cache-path "$ZSH_CACHE_DIR"
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
 
-autoload -Uz compinit
-compinit
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-if command -v ssh-agent >/dev/null 2>&1; then
-  eval "$(ssh-agent)"
-  ssh-add --apple-load-keychain
-fi
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
 
-# zgen settings
-# shellcheck disable=SC2034
-ZGEN_RESET_ON_CHANGE=$HOME/.zshrc
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
-# zsh-syntax-highlighting settings
-# shellcheck disable=SC2034
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
 
-# autoupdate-zgen settings
-# shellcheck disable=SC2034
-ZGEN_PLUGIN_UPDATE_DAYS=7
-# shellcheck disable=SC2034
-ZGEN_SYSTEM_UPDATE_DAYS=7
+source $ZSH/oh-my-zsh.sh
 
-# Setup zgen
-ZGEN_CLONE_DIR=$HOME/zgen
-ZGEN_SCRIPT_PATH=$ZGEN_CLONE_DIR/zgen.zsh
+# User configuration
 
-if [[ ! -f $ZGEN_SCRIPT_PATH ]]; then
-  git clone git@github.com:tarjoilija/zgen.git "$ZGEN_CLONE_DIR"
-fi
+# export MANPATH="/usr/local/man:$MANPATH"
 
-# shellcheck source=/dev/null
-source "$ZGEN_SCRIPT_PATH"
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-if ! zgen saved; then
-  # zsh-users plugins
-  zgen load zsh-users/zsh-autosuggestions
-  zgen load zsh-users/zsh-completions
-  zgen load zsh-users/zsh-syntax-highlighting # Must be loaded before zsh-history-substring-search
-  zgen load zsh-users/zsh-history-substring-search
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='mvim'
+ fi
 
-  # Other plugins
-  zgen load djui/alias-tips
-  zgen load unixorn/autoupdate-zgen
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-  zgen save
-fi
-
-if command -v starship >/dev/null 2>&1; then
-  eval "$(starship init zsh)"
-fi
-
-if [[ -v ITERM_PROFILE ]]; then
-  ITERM2_INTEGRATION_PATH=$HOME/.iterm2_shell_integration.zsh
-
-  if [[ ! -f $ITERM2_INTEGRATION_PATH ]]; then
-    curl -L https://iterm2.com/shell_integration/zsh -o "$ITERM2_INTEGRATION_PATH"
-  fi
-
-  # shellcheck source=/dev/null
-  source "$ITERM2_INTEGRATION_PATH"
-fi
-
-if command -v direnv > /dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
-fi
-
-if command -v rbenv >/dev/null 2>&1; then
-  eval "$(rbenv init -)"
-fi
-
-if command -v nodenv >/dev/null 2>&1; then
-  eval "$(nodenv init -)"
-fi
-
-if [[ -f "$(brew --prefix php-version)/php-version.sh" ]]; then
-  # shellcheck source=/dev/null
-  source "$(brew --prefix php-version)/php-version.sh" && php-version 7.4
-fi
-
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g ......='../../../../..'
-
-alias 1='cd -'
-alias 2='cd -2'
-alias 3='cd -3'
-alias 4='cd -4'
-alias 5='cd -5'
-alias 6='cd -6'
-alias 7='cd -7'
-alias 8='cd -8'
-alias 9='cd -9'
-
-alias ls='ls -G'
-
-function take() {
-  mkdir -p "$@" && cd "${@:$#}" || exit 1
-}
-
-bindkey -e
-
-bindkey -M menuselect '^o' accept-and-infer-next-history
-
-# zsh-history-substring-search key bindings
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Use the provided Bash autocompletion for adr-tools. Note that there are other
-# scripts in this directory, but not all of them work well with zsh.
-autoload -U +X bashcompinit && bashcompinit
-# shellcheck source=/dev/null
-source "$(brew --prefix)/etc/bash_completion.d/adr-tools"
-
-export EDITOR="vim"
-
-# END local-env
-# Autocompletions for govpress-tools
-source $HOME/.govpress_zsh_completions.sh
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias zshrc="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# aliases
-# switch between sessions
-alias ts="~/dotfiles/scripts/tmux_switch_session.sh"
