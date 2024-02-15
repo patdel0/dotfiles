@@ -22,7 +22,7 @@ clone_git_repo() {
 }
 
 add_repo_to_cache() {
-	add_to_cache_file $clone_directory
+	add_to_cache_file $repo_name
 }
 
 create_session() {
