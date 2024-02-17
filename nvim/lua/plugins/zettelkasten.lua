@@ -16,7 +16,8 @@ return {
     -- "uuid" - Use uuid
     -- "uuid-title" - Prefix title by uuid
     -- "title-uuid" - Suffix title with uuid
-    new_note_filename = "title",
+    new_note_filename = "uuid-title",
+    filename_space_subst = "-",
     -- file uuid type ("rand" or input for os.date such as "%Y%m%d%H%M")
     uuid_type = "%Y%m%d%H%M",
     -- UUID separator
