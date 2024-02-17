@@ -3,7 +3,7 @@ return {
   dependencies = { "nvim-telescope/telescope.nvim", "nvim-telescope/telescope-media-files.nvim" },
   opts = {
     -- Main paths
-    home = "code/github.com/zettelkasten/",
+    home = vim.fn.expand("~/code/github.com/zettelkasten/"),
     dailies = "daily/",
     weeklies = "weekly/",
     templates = "templates/",
