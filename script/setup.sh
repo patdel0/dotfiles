@@ -10,6 +10,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 sudo apt-get update
 sudo apt-get install fzf -y
 sudo apt install ranger -y
+sudp apt-get install lynx -y
 
 # Link config files
 current_directory=$(pwd)
