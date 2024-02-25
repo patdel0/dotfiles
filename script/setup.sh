@@ -6,6 +6,7 @@ rm -rf ~/.oh-my-zsh
 (zsh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended)
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash -s /usr/local/bin
 
 sudo apt-get update
 sudo apt-get install fzf -y
