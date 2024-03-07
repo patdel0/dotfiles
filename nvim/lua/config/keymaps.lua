@@ -27,3 +27,5 @@ vim.keymap.set("n", "<leader>wmn", "<C-w>=<CR>", { noremap = true, silent = true
 
 -- Buffer management
 vim.keymap.set("n", "<leader>bk", ":bdelete<CR>", { noremap = true, silent = true, desc = "Close buffer" })
+
+-- Notes
