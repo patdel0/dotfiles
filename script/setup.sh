@@ -20,8 +20,8 @@ git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
 current_directory=$(pwd)
 rm ~/.tmux.conf
 rm ~/.zshrc
-rm ~/.config/nvim
-rm ~/.config/doom
+rm -rf ~/.config/nvim
+rm -rf ~/.config/doom
 
 ln -s $current_directory/.tmux.conf ~/.tmux.conf
 ln -s $current_directory/.zshrc ~/.zshrc
