@@ -10,8 +10,8 @@ curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash 
 
 sudo apt-get update
 sudo apt-get install fzf -y
-sudo apt install ranger -y
-sudp apt-get install lynx -y
+sudo apt-get install ranger -y
+sudo apt-get install lynx -y
 
 # Link config files
 current_directory=$(pwd)
