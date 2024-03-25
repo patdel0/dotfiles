@@ -116,3 +116,16 @@
                         ("metal - soma fm"   . "https://somafm.com/metal130.pls")           ;; \m/
                         ("cyberia - lainon"  . "https://lainon.life/radio/cyberia.ogg.m3u") ;; cyberpunk-esque electronica
                         ("cafe - lainon"     . "https://lainon.life/radio/cafe.ogg.m3u")))  ;; boring ambient, but with lain
+
+;; Search the web
+(map! :leader "s w" 'eww :desc "Search the web")
+
+;; Phind
+(defun start-conversation-with-phind-llm()
+ (interactive)
+ (evil-window-vsplit)
+ (evil-window-move-far-right)
+ (call-interactively '+vterm/here)
+ (vterm-send-string "tgpt -i\n"))
+
+(map! :leader "s g" #'start-conversation-with-phind-llm :desc "Search with GPT")
