@@ -130,3 +130,7 @@
  (vterm-send-string "tgpt -i\n"))
 
 (map! :leader "s g" #'start-conversation-with-phind-llm :desc "Search with GPT")
+
+;; YeeTube
+(map! :leader "y s" 'yeetube-search :desc "Search on YouTube")
+(map! :leader "y p" 'yeetube-play :desc "Play the video")
