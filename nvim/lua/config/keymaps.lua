@@ -7,7 +7,8 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Go to definition" }
 )
 
-vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { noremap = true, silent = true, desc = "Open Neogit" })
+vim.keymap.set("n", "<leader>fs", ":w<CR>", { noremap = true, silent = true, desc = "Save file" })
+-- vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { noremap = true, silent = true, desc = "Open Neogit" })
 
 -- Window management
 vim.keymap.set("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true, desc = "Switch window left" })
