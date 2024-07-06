@@ -1,12 +1,20 @@
 return {
-  -- Good alternative to emacs magit
-  "NeogitOrg/neogit",
-  dependencies = {
-    "nvim-lua/plenary.nvim", -- required
-    "sindrets/diffview.nvim", -- optional - Diff integration
-
-    -- Only one of these is needed, not both.
-    "nvim-telescope/telescope.nvim", -- optional
-  },
-  config = true,
+  {
+    "TimUntersberger/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim"
+    },
+    cmd = "Neogit",
+    keys = {
+      { "<leader>gg", "<cmd>Neogit<CR>", mode = { "n" }, desc = "Open Neogit" }
+    },
+    config = function()
+      require("neogit").setup {
+        integrations = {
+          diffview = true
+        }
+      }
+    end
+  }
 }
