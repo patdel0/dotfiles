@@ -1,0 +1,23 @@
+#!/bin/bash
+
+sudo apt update
+sudo apt upgrade
+sudo apt install ripgrep xclip cmake gcc python3 python3-pip libtool libtool-bin xdotool vlc
+
+# Doom Emacs
+if ! type emacs; then
+    sudo apt install emacs
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+fi
+
+# Create symlinks
+current_directory=$(pwd)
+echo "Removing existing config files"
+rm -rf $HOME/.config/doom
+
+echo "Creating sym links..."
+ln -sf $current_directory/doom $HOME/.config/doom
+echo "Sym links created!"
+
+$HOME/.config/emacs/bin/doom sync
