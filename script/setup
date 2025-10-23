@@ -2,7 +2,7 @@
 
 sudo apt update
 sudo apt upgrade
-sudo apt install ripgrep xclip cmake gcc python3 python3-pip libtool libtool-bin xdotool vlc
+sudo apt install ripgrep xclip cmake gcc python3 python3-pip libtool libtool-bin xdotool vlc nodejs npm
 
 # Doom Emacs
 if ! type emacs; then
