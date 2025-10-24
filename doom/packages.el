@@ -19,6 +19,12 @@
 ;; Web search
 (package! counsel-web)
 
+;; dotenv files
+(package! s)
+(package! f)
+(package! dotenv
+  :recipe (:host github :repo "pkulev/dotenv.el" :files ("dotenv.el")))
+
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/radian-software/straight.el#the-recipe-format

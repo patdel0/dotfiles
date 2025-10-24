@@ -1,13 +1,14 @@
-;; Load the dot-env package
-;; (use-package dot-env
-;;   :ensure t
-;;   :config
-;;   (dot-env-config)  ;; Automatically loads from .env file
-;;   (when (file-exists-p "../.env")
-;;     (dot-env-load "../.env")))  ;; Explicitly load the .env file
+(use-package! dotenv
+  :config
+  ;; Load .env from ~/code/github.com/dotfiles/.env on startup
+  (dotenv-update-project-env "~/code/github.com/dotfiles/")
+  ;; Optionally, keep the projectile hook for project-specific .env files
+  (add-hook 'projectile-after-switch-project-hook
+            (lambda ()
+              "Loading project-specific .env..."
+              (dotenv-update-project-env (projectile-project-root)))))
 
-;; ;; Test that the environment variable is loaded
-;; (message "API Key: %s" (getenv "GROQ_API_KEY"))
+(getenv "GROQ_API_KEY")
 
 (setq doom-theme 'doom-one)
 
@@ -38,10 +39,10 @@
         :host "api.groq.com"
         :endpoint "/openai/v1/chat/completions"
         :stream t
-        :key "GROQ"                   ;can be a function that returns the key
+        :key (getenv "GROQ_API_KEY") ;can be a function that returns the key
         :models '(llama-3.3-70b-versatile
                   llama-3.1-8b-instant
                   llama3-70b-8192
                   llama3-8b-8192
                   mixtral-8x7b-32768
-                  gemma-7b-it))
+                  gemma-7b-it)))

@@ -21,3 +21,6 @@ ln -sf $current_directory/doom $HOME/.config/doom
 echo "Sym links created!"
 
 $HOME/.config/emacs/bin/doom sync
+
+echo "Create example .env file"
+mv .env-example .env

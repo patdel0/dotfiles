@@ -5,6 +5,7 @@
 * Table of Contents :TOC_3:
 - [[#guidance][Guidance]]
 - [[#environment-variables][Environment variables]]
+  - [[#confirm-the-envars-are-being-loaded][Confirm the envars are being loaded]]
 - [[#theme-settings][Theme settings]]
   - [[#theme-color-scheme][Theme color scheme]]
   - [[#display-line-numbers][Display line numbers]]
@@ -55,19 +56,24 @@
 
 * Environment variables
 #+begin_src emacs-lisp :tangle yes
-;; Load the dot-env package
-;; (use-package dot-env
-;;   :ensure t
-;;   :config
-;;   (dot-env-config)  ;; Automatically loads from .env file
-;;   (when (file-exists-p "../.env")
-;;     (dot-env-load "../.env")))  ;; Explicitly load the .env file
+(use-package! dotenv
+  :config
+  ;; Load .env from ~/code/github.com/dotfiles/.env on startup
+  (dotenv-update-project-env "~/code/github.com/dotfiles/")
+  ;; Optionally, keep the projectile hook for project-specific .env files
+  (add-hook 'projectile-after-switch-project-hook
+            (lambda ()
+              "Loading project-specific .env..."
+              (dotenv-update-project-env (projectile-project-root)))))
+#+end_src
 
-;; ;; Test that the environment variable is loaded
-;; (message "API Key: %s" (getenv "GROQ_API_KEY"))
+** Confirm the envars are being loaded
+#+begin_src emacs-lisp
+(getenv "GROQ_API_KEY")
 #+end_src
 
 #+RESULTS:
+
 
 * Theme settings
 ** Theme color scheme
@@ -128,18 +134,14 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
         :host "api.groq.com"
         :endpoint "/openai/v1/chat/completions"
         :stream t
-        :key "GROQ"                   ;can be a function that returns the key
+        :key (getenv "GROQ_API_KEY") ;can be a function that returns the key
         :models '(llama-3.3-70b-versatile
                   llama-3.1-8b-instant
                   llama3-70b-8192
                   llama3-8b-8192
                   mixtral-8x7b-32768
-                  gemma-7b-it))
+                  gemma-7b-it)))
 #+end_src
 
 * Swapping caps for escape
-This needs to be done in $HOME/.profile: =/usr/bin/setxkbmap -option "caps:swapescape"=
-Or C-c C-c in the code block below:
-#+begin_src bash
-echo /usr/bin/setxkbmap -option \"caps:swapescape\" >> $HOME/.profile
-#+end_src
+This needs to be done in $HOME/.profile.
