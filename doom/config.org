@@ -4,22 +4,21 @@
 :END:
 * Table of Contents :TOC_3:
 - [[#guidance][Guidance]]
-- [[#environment-variables][Environment variables]]
-  - [[#confirm-the-envars-are-being-loaded][Confirm the envars are being loaded]]
-- [[#theme-settings][Theme settings]]
-  - [[#theme-color-scheme][Theme color scheme]]
-  - [[#display-line-numbers][Display line numbers]]
-- [[#org-mode-settings][Org mode settings]]
-  - [[#general][General]]
-- [[#music][Music]]
-  - [[#eradio][eradio]]
-    - [[#startup][Startup]]
-    - [[#keymaps][Keymaps]]
-    - [[#radio-list][Radio list]]
-- [[#web-search][Web search]]
-- [[#ai][AI]]
-  - [[#gptel][gptel]]
-- [[#swapping-caps-for-escape][Swapping caps for escape]]
+- [[#automatic-config][Automatic config]]
+  - [[#environment-variables][Environment variables]]
+    - [[#confirm-the-envars-are-being-loaded][Confirm the envars are being loaded]]
+  - [[#theme-settings][Theme settings]]
+    - [[#theme-color-scheme][Theme color scheme]]
+    - [[#display-line-numbers][Display line numbers]]
+  - [[#org-mode-settings][Org mode settings]]
+    - [[#general][General]]
+  - [[#music][Music]]
+    - [[#eradio][eradio]]
+  - [[#web-search][Web search]]
+  - [[#ai][AI]]
+    - [[#gptel][gptel]]
+- [[#manual-execution][Manual execution]]
+  - [[#swapping-caps-for-escape][Swapping caps for escape]]
 
 * Guidance
  Whenever you reconfigure a package, make sure to wrap your config in an
@@ -54,60 +53,58 @@
  You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
  they are implemented.
 
-* Environment variables
+* Automatic config
+** Environment variables
 #+begin_src emacs-lisp :tangle yes
 (use-package! dotenv
   :config
   ;; Load .env from ~/code/github.com/dotfiles/.env on startup
   (dotenv-update-project-env "~/code/github.com/dotfiles/")
-  ;; Optionally, keep the projectile hook for project-specific .env files
+
   (add-hook 'projectile-after-switch-project-hook
             (lambda ()
               "Loading project-specific .env..."
               (dotenv-update-project-env (projectile-project-root)))))
 #+end_src
 
-** Confirm the envars are being loaded
+*** Confirm the envars are being loaded
 #+begin_src emacs-lisp
-(getenv "GROQ_API_KEY")
+;; (getenv "GROQ_API_KEY")
 #+end_src
 
-#+RESULTS:
-
-
-* Theme settings
-** Theme color scheme
+** Theme settings
+*** Theme color scheme
 #+begin_src emacs-lisp :tangle yes
 (setq doom-theme 'doom-one)
 #+end_src
 
-** Display line numbers
+*** Display line numbers
 #+begin_src emacs-lisp :tangle yes
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-* Org mode settings
-** General
+** Org mode settings
+*** General
 #+begin_src emacs-lisp :tangle yes
 (setq org-directory "~/org/")
 #+end_src
 
-* Music
-** eradio
-*** Startup
+** Music
+*** eradio
+**** Startup
 This autoplays the radio when emacs starts up for the first time.
 #+begin_src emacs-lisp :tangle yes
 (eradio-play "https://somafm.com/groovesalad256.pls")
 #+end_src
 
-*** Keymaps
+**** Keymaps
 #+begin_src emacs-lisp :tangle yes
 (map! :leader (:prefix ("r" . "eradio") :desc "Play a radio channel" "p" 'eradio-play))
 (map! :leader (:prefix ("r" . "eradio") :desc "Stop the radio player" "s" 'eradio-stop))
 (map! :leader (:prefix ("r" . "eradio") :desc "Toggle the radio player" "t" 'eradio-toggle))
 #+end_src
 
-*** Radio list
+**** Radio list
 #+begin_src emacs-lisp :tangle yes
 (setq eradio-channels '(("def con - soma fm" . "https://somafm.com/defcon256.pls")         ;; electronica with defcon-speaker bumpers
                         ("metal - soma fm"   . "https://somafm.com/metal130.pls")          ;; \m/
@@ -116,15 +113,15 @@ This autoplays the radio when emacs starts up for the first time.
                         ))
 #+end_src
 
-* Web search
+** Web search
 Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen, showing the top results of the search
 
 #+begin_src emacs-lisp :tangle yes
 (map! :leader "s w" 'counsel-web-search :desc "Search the web")
 (setq eww-auto-rename-buffer 'title)
 #+end_src
-* AI
-** gptel
+** AI
+*** gptel
 #+begin_src emacs-lisp :tangle yes
 (use-package! gptel)
 (setq gptel-default-mode 'org-mode)
@@ -143,5 +140,10 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
                   gemma-7b-it)))
 #+end_src
 
-* Swapping caps for escape
-This needs to be done in $HOME/.profile.
+* Manual execution
+** Swapping caps for escape
+This needs to be done in $HOME/.profile: =/usr/bin/setxkbmap -option "caps:swapescape"=
+Or C-c C-c in the code block below:
+#+begin_src bash
+echo /usr/bin/setxkbmap -option \"caps:swapescape\" >> $HOME/.profile
+#+end_src
