@@ -18,6 +18,7 @@
 - [[#web-search][Web search]]
 - [[#ai][AI]]
   - [[#gptel][gptel]]
+- [[#swapping-caps-for-escape][Swapping caps for escape]]
 
 * Guidance
  Whenever you reconfigure a package, make sure to wrap your config in an
@@ -134,4 +135,11 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
                   llama3-8b-8192
                   mixtral-8x7b-32768
                   gemma-7b-it))
+#+end_src
+
+* Swapping caps for escape
+This needs to be done in $HOME/.profile: =/usr/bin/setxkbmap -option "caps:swapescape"=
+Or C-c C-c in the code block below:
+#+begin_src bash
+echo /usr/bin/setxkbmap -option \"caps:swapescape\" >> $HOME/.profile
 #+end_src
