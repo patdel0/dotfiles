@@ -2,24 +2,6 @@
 #+property: header-args:emacs-lisp :tangle config.el :mkdirp yes :comments no
 #+startup: fold
 :END:
-* Table of Contents :TOC_3:
-- [[#guidance][Guidance]]
-- [[#automatic-config][Automatic config]]
-  - [[#environment-variables][Environment variables]]
-    - [[#confirm-the-envars-are-being-loaded][Confirm the envars are being loaded]]
-  - [[#theme-settings][Theme settings]]
-    - [[#theme-color-scheme][Theme color scheme]]
-    - [[#display-line-numbers][Display line numbers]]
-  - [[#org-mode-settings][Org mode settings]]
-    - [[#general][General]]
-  - [[#music][Music]]
-    - [[#eradio][eradio]]
-  - [[#web-search][Web search]]
-  - [[#ai][AI]]
-    - [[#gptel][gptel]]
-- [[#manual-execution][Manual execution]]
-  - [[#swapping-caps-for-escape][Swapping caps for escape]]
-
 * Guidance
  Whenever you reconfigure a package, make sure to wrap your config in an
  `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -83,6 +65,10 @@
 (setq display-line-numbers-type 'relative)
 #+end_src
 
+** Emacs everywhere
+#+begin_src emacs-lisp :tangle yes
+(setq emacseverywhere-save-temporary-file nil)
+#+end_src
 ** Org mode settings
 *** General
 #+begin_src emacs-lisp :tangle yes
@@ -117,8 +103,9 @@ This autoplays the radio when emacs starts up for the first time.
 Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen, showing the top results of the search
 
 #+begin_src emacs-lisp :tangle yes
-(map! :leader "s w" 'counsel-web-search :desc "Search the web")
+(map! :leader "s w" 'eww :desc "Search the web")
 (setq eww-auto-rename-buffer 'title)
+(setq eww-buffers-queryable nil)
 #+end_src
 ** AI
 *** gptel
@@ -145,5 +132,8 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
 This needs to be done in $HOME/.profile: =/usr/bin/setxkbmap -option "caps:swapescape"=
 Or C-c C-c in the code block below:
 #+begin_src bash
-echo /usr/bin/setxkbmap -option \"caps:swapescape\" >> $HOME/.profile
+echo /usr/bin/setxkbmap -option "caps:swapescape" >> $HOME/.profile
 #+end_src
+
+Alternatively, set up the startup application in Ubuntu:
+#+RESULTS:

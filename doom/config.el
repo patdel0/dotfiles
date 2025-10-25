@@ -2,17 +2,19 @@
   :config
   ;; Load .env from ~/code/github.com/dotfiles/.env on startup
   (dotenv-update-project-env "~/code/github.com/dotfiles/")
-  ;; Optionally, keep the projectile hook for project-specific .env files
+
   (add-hook 'projectile-after-switch-project-hook
             (lambda ()
               "Loading project-specific .env..."
               (dotenv-update-project-env (projectile-project-root)))))
 
-(getenv "GROQ_API_KEY")
+;; (getenv "GROQ_API_KEY")
 
 (setq doom-theme 'doom-one)
 
 (setq display-line-numbers-type 'relative)
+
+(setq emacseverywhere-save-temporary-file nil)
 
 (setq org-directory "~/org/")
 
@@ -28,8 +30,9 @@
                         ("ambient - soma fm"  . "https://somafm.com/groovesalad256.pls")   ;; ambient and chill
                         ))
 
-(map! :leader "s w" 'counsel-web-search :desc "Search the web")
+(map! :leader "s w" 'eww :desc "Search the web")
 (setq eww-auto-rename-buffer 'title)
+(setq eww-buffers-queryable nil)
 
 (use-package! gptel)
 (setq gptel-default-mode 'org-mode)
