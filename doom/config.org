@@ -54,6 +54,10 @@
 ;; (getenv "GROQ_API_KEY")
 #+end_src
 
+** Eshell
+#+begin_src emacs-lisp :tangle yes
+(eshell/alias "jenv" "~/.jenv/bin/jenv")
+#+end_src
 ** Theme settings
 *** Theme color scheme
 #+begin_src emacs-lisp :tangle yes
@@ -134,6 +138,12 @@ Or C-c C-c in the code block below:
 #+begin_src bash
 echo /usr/bin/setxkbmap -option "caps:swapescape" >> $HOME/.profile
 #+end_src
+
+#+begin_src bash
+/usr/bin/setxkbmap -option "caps:swapescape"
+#+end_src
+
+#+RESULTS:
 
 Alternatively, set up the startup application in Ubuntu:
 #+RESULTS:

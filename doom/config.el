@@ -10,6 +10,8 @@
 
 ;; (getenv "GROQ_API_KEY")
 
+(eshell/alias "jenv" "~/.jenv/bin/jenv")
+
 (setq doom-theme 'doom-one)
 
 (setq display-line-numbers-type 'relative)
