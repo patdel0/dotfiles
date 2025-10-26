@@ -132,6 +132,14 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
                   gemma-7b-it)))
 #+end_src
 
+** Discord
+*** Startup
+#+begin_src emacs-lisp :tangle yes
+;; Package to share status in emacs using Discord Rich Presence
+(setq elcord-editor-icon "emacs_material_icon")
+(elcord-mode 1)
+#+end_src
+
 * Manual execution
 ** Swapping caps for escape
 This needs to be done in $HOME/.profile: =/usr/bin/setxkbmap -option "caps:swapescape"=
@@ -140,11 +148,7 @@ Or C-c C-c in the code block below:
 echo /usr/bin/setxkbmap -option "caps:swapescape" >> $HOME/.profile
 #+end_src
 
+Alternatively, set up the startup application in your Distro settings:
 #+begin_src bash
 /usr/bin/setxkbmap -option "caps:swapescape"
 #+end_src
-
-#+RESULTS:
-
-Alternatively, set up the startup application in Ubuntu:
-#+RESULTS:
