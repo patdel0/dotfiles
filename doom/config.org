@@ -54,6 +54,16 @@
 ;; (getenv "GROQ_API_KEY")
 #+end_src
 
+** Coding
+*** Lsp
+#+begin_src emacs-lisp :tangle yes
+(add-hook! 'java-mode-hook #'lsp)
+(add-hook! 'lsp-mode-hook #'lsp-lens-mode)
+(add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
+#+end_src
+
+#+RESULTS:
+
 ** Eshell
 #+begin_src emacs-lisp :tangle yes
 (add-hook! 'eshell-first-time-mode-hook
@@ -69,11 +79,28 @@
 #+begin_src emacs-lisp :tangle yes
 (setq display-line-numbers-type 'relative)
 #+end_src
+*** Default window size
+#+begin_src emacs-lisp :tangle yes
+(modify-frame-parameters nil '((undecorated . t) (skip-taskbar . t)))
+#+end_src
+
+#+RESULTS:
 
 ** Emacs everywhere
+
 #+begin_src emacs-lisp :tangle yes
-(setq emacseverywhere-save-temporary-file nil)
+(setq emacs-everywhere-frame-parameters
+      '((width . 80)        ;; ~600px)
+        (height . 15)       ;; 15 characters tall
+        (undecorated . t)   ;; remove title bar
+        (skip-taskbar . t)  ;; do not show in taskbar
+        (vertical-scroll-bars . nil)
+        (horizontal-scroll-bars . nil)))
 #+end_src
+
+#+RESULTS:
+: ((width . 80) (height . 15) (undecorated . t) (skip-taskbar . t) (vertical-scroll-bars) (horizontal-scroll-bars))
+
 ** Org mode settings
 *** General
 #+begin_src emacs-lisp :tangle yes
@@ -101,6 +128,7 @@ This autoplays the radio when emacs starts up for the first time.
                         ("metal - soma fm"   . "https://somafm.com/metal130.pls")          ;; \m/
                         ("bossa beyond - soma fm"  . "https://somafm.com/bossa256.pls")    ;; bossa nova
                         ("ambient - soma fm"  . "https://somafm.com/groovesalad256.pls")   ;; ambient and chill
+                        ("specials - soma fm"  . "https://somafm.com/nossl/specials.pls")   ;; Soma fm specials, mixed
                         ))
 #+end_src
 
@@ -152,3 +180,11 @@ Alternatively, set up the startup application in your Distro settings:
 #+begin_src bash
 /usr/bin/setxkbmap -option "caps:swapescape"
 #+end_src
+
+** Emacs everywhere
+This needs to be set to a keybind in your system
+#+begin_src bash
+emacsclient --eval "(emacs-everywhere)"
+#+end_src
+
+#+RESULTS:

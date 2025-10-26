@@ -10,6 +10,10 @@
 
 ;; (getenv "GROQ_API_KEY")
 
+(add-hook! 'java-mode-hook #'lsp)
+(add-hook! 'lsp-mode-hook #'lsp-lens-mode)
+(add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
+
 (add-hook! 'eshell-first-time-mode-hook
            (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
 
@@ -17,7 +21,15 @@
 
 (setq display-line-numbers-type 'relative)
 
-(setq emacseverywhere-save-temporary-file nil)
+(modify-frame-parameters nil '((undecorated . t) (skip-taskbar . t)))
+
+(setq emacs-everywhere-frame-parameters
+      '((width . 80)        ;; ~600px)
+        (height . 15)       ;; 15 characters tall
+        (undecorated . t)   ;; remove title bar
+        (skip-taskbar . t)  ;; do not show in taskbar
+        (vertical-scroll-bars . nil)
+        (horizontal-scroll-bars . nil)))
 
 (setq org-directory "~/org/")
 
@@ -31,6 +43,7 @@
                         ("metal - soma fm"   . "https://somafm.com/metal130.pls")          ;; \m/
                         ("bossa beyond - soma fm"  . "https://somafm.com/bossa256.pls")    ;; bossa nova
                         ("ambient - soma fm"  . "https://somafm.com/groovesalad256.pls")   ;; ambient and chill
+                        ("specials - soma fm"  . "https://somafm.com/nossl/specials.pls")   ;; Soma fm specials, mixed
                         ))
 
 (map! :leader "s w" 'eww :desc "Search the web")
