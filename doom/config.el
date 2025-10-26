@@ -20,7 +20,7 @@
 
 (setq org-directory "~/org/")
 
-(eradio-play "https://somafm.com/groovesalad256.pls")
+(eradio-play "https://somafm.com/bossa256.pls")
 
 (map! :leader (:prefix ("r" . "eradio") :desc "Play a radio channel" "p" 'eradio-play))
 (map! :leader (:prefix ("r" . "eradio") :desc "Stop the radio player" "s" 'eradio-stop))

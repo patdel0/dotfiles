@@ -84,7 +84,7 @@
 **** Startup
 This autoplays the radio when emacs starts up for the first time.
 #+begin_src emacs-lisp :tangle yes
-(eradio-play "https://somafm.com/groovesalad256.pls")
+(eradio-play "https://somafm.com/bossa256.pls")
 #+end_src
 
 **** Keymaps
