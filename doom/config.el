@@ -10,7 +10,8 @@
 
 ;; (getenv "GROQ_API_KEY")
 
-(eshell/alias "jenv" "~/.jenv/bin/jenv")
+(add-hook! 'eshell-first-time-mode-hook
+           (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
 
 (setq doom-theme 'doom-one)
 

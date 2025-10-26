@@ -56,7 +56,8 @@
 
 ** Eshell
 #+begin_src emacs-lisp :tangle yes
-(eshell/alias "jenv" "~/.jenv/bin/jenv")
+(add-hook! 'eshell-first-time-mode-hook
+           (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
 #+end_src
 ** Theme settings
 *** Theme color scheme
