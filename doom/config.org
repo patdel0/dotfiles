@@ -106,6 +106,13 @@
 #+begin_src emacs-lisp :tangle yes
 (setq org-directory "~/org/")
 #+end_src
+*** Keymaps
+#+begin_src emacs-lisp :tangle yes
+(map! :leader (:prefix "t" :desc "[T]angle [O]rg file" "o" 'org-babel-tangle))
+#+end_src
+
+#+RESULTS:
+: org-babel-tangle
 
 ** Music
 *** eradio
