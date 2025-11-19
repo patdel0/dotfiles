@@ -164,6 +164,10 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
 (setq eww-auto-rename-buffer 'title)
 (setq eww-buffers-queryable nil)
 #+end_src
+*** Docs
+#+begin_src emacs-lisp :tangle yes
+(map! :leader "s d" 'devdocs-lookup :desc "Search offline docs")
+#+end_src
 ** AI
 *** gptel
 #+begin_src emacs-lisp :tangle yes
