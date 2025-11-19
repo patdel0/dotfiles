@@ -19,6 +19,12 @@
 ;; Web search
 (package! counsel-web)
 
+;; Dictionary
+(package! wordnut)
+
+;; Documentation search
+(package! devdocs)
+
 ;; dotenv files
 (package! s)
 (package! f)
