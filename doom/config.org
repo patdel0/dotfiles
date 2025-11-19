@@ -186,8 +186,8 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
 
 ** Discord
 *** Startup
+Install package to share status in emacs using Discord Rich Presence
 #+begin_src emacs-lisp :tangle yes
-;; Package to share status in emacs using Discord Rich Presence
 (setq elcord-editor-icon "emacs_material_icon")
 (elcord-mode 1)
 #+end_src
