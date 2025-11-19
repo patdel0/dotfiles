@@ -57,12 +57,29 @@
 ** Coding
 *** Lsp
 #+begin_src emacs-lisp :tangle yes
-(add-hook! 'java-mode-hook #'lsp)
+(add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
 #+end_src
 
-#+RESULTS:
+*** Debugging
+
+#+begin_src emacs-lisp :tangle yes
+(map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
+(map! :leader "d s" #'dap-debug :desc "Debugger start")
+(map! :leader "d r" #'dap-debug-restart :desc "Debugger restart")
+(map! :leader "d j" #'dap-java-debug-test-class :desc "Debug JUnit test")
+(map! :leader "d d" #'dap-disconnect :desc "Debugger disconnect")
+(map! :leader "d n" #'dap-next :desc "Debugger next")
+(map! :leader "d o" #'dap-step-out :desc "Debugger step over")
+(map! :leader "d i" #'dap-step-in :desc "Debugger step in")
+(map! :leader "d l" #'dap-locals :desc "Debugger locals")
+(map! :leader "d e a" #'dap-ui-expressions-add :desc "Debugger Expression Add")
+(map! :leader "d e l" #'dap-ui-expressions :desc "Debugger Expression list")
+(map! :leader "d e r" #'dap-ui-expressions-remove :desc "Debugger Expression Remove")
+(map! :leader "d b b" #'dap-ui-breakpoints-browse :desc "Debugger Breakpoints Browse")
+(map! :leader "d b c" #'dap-breakpoint-delete-all :desc "Debugger Breakpoint Clear")
+#+end_src
 
 ** Eshell
 #+begin_src emacs-lisp :tangle yes
