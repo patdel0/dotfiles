@@ -55,15 +55,15 @@
 #+end_src
 
 ** Coding
-*** Lsp
+*** Java
+**** Lsp
 #+begin_src emacs-lisp :tangle yes
 (add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
 #+end_src
 
-*** Debugging
-
+**** Debugging
 #+begin_src emacs-lisp :tangle yes
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
 (map! :leader "d s" #'dap-debug :desc "Debugger start")
@@ -79,6 +79,25 @@
 (map! :leader "d e r" #'dap-ui-expressions-remove :desc "Debugger Expression Remove")
 (map! :leader "d b b" #'dap-ui-breakpoints-browse :desc "Debugger Breakpoints Browse")
 (map! :leader "d b c" #'dap-breakpoint-delete-all :desc "Debugger Breakpoint Clear")
+#+end_src
+
+**** Custom workflow improvements
+***** Run current file
+Runs the file that is currently open in the buffer in an Eshell instance
+#+begin_src emacs-lisp :tangle yes
+(defun java-eshell()
+  (interactive)
+  (let ((file buffer-file-name)
+        (buf (get-buffer-create "*eshell-java*")))
+    (pop-to-buffer buf)
+    (unless (eq major-mode 'eshell-mode)
+      (eshell-mode))
+    ;; move to end before inserting
+    (goto-char (point-max))
+    (insert (format "java %s" file))
+    (eshell-send-input)))
+
+(map! :leader "j e" #'java-eshell :desc "[J]ava [e]xecute code")
 #+end_src
 
 ** Eshell
@@ -156,7 +175,8 @@ This autoplays the radio when emacs starts up for the first time.
                         ))
 #+end_src
 
-** Web search
+** Search
+*** Web
 Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen, showing the top results of the search
 
 #+begin_src emacs-lisp :tangle yes

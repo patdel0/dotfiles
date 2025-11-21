@@ -10,9 +10,39 @@
 
 ;; (getenv "GROQ_API_KEY")
 
-(add-hook! 'java-mode-hook #'lsp)
+(add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
+
+(map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
+(map! :leader "d s" #'dap-debug :desc "Debugger start")
+(map! :leader "d r" #'dap-debug-restart :desc "Debugger restart")
+(map! :leader "d j" #'dap-java-debug-test-class :desc "Debug JUnit test")
+(map! :leader "d d" #'dap-disconnect :desc "Debugger disconnect")
+(map! :leader "d n" #'dap-next :desc "Debugger next")
+(map! :leader "d o" #'dap-step-out :desc "Debugger step over")
+(map! :leader "d i" #'dap-step-in :desc "Debugger step in")
+(map! :leader "d l" #'dap-locals :desc "Debugger locals")
+(map! :leader "d e a" #'dap-ui-expressions-add :desc "Debugger Expression Add")
+(map! :leader "d e l" #'dap-ui-expressions :desc "Debugger Expression list")
+(map! :leader "d e r" #'dap-ui-expressions-remove :desc "Debugger Expression Remove")
+(map! :leader "d b b" #'dap-ui-breakpoints-browse :desc "Debugger Breakpoints Browse")
+(map! :leader "d b c" #'dap-breakpoint-delete-all :desc "Debugger Breakpoint Clear")
+(map! :leader "d b c" #'dap-breakpoint-delete-all :desc "Debugger Breakpoint Clear")
+
+(defun java-eshell()
+  (interactive)
+  (let ((file buffer-file-name)
+        (buf (get-buffer-create "*eshell-java*")))
+    (pop-to-buffer buf)
+    (unless (eq major-mode 'eshell-mode)
+      (eshell-mode))
+    ;; move to end before inserting
+    (goto-char (point-max))
+    (insert (format "java %s" file))
+    (eshell-send-input)))
+
+(map! :leader "j e" #'java-eshell :desc "[J]ava [e]xecute code")
 
 (add-hook! 'eshell-first-time-mode-hook
            (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
@@ -33,6 +63,8 @@
 
 (setq org-directory "~/org/")
 
+(map! :leader (:prefix "t" :desc "[T]angle [O]rg file" "o" 'org-babel-tangle))
+
 (eradio-play "https://somafm.com/bossa256.pls")
 
 (map! :leader (:prefix ("r" . "eradio") :desc "Play a radio channel" "p" 'eradio-play))
@@ -50,6 +82,8 @@
 (setq eww-auto-rename-buffer 'title)
 (setq eww-buffers-queryable nil)
 
+(map! :leader "s d" 'devdocs-lookup :desc "Search offline docs")
+
 (use-package! gptel)
 (setq gptel-default-mode 'org-mode)
 (setq gptel-model 'llama-3.3-70b-versatile
@@ -66,6 +100,5 @@
                   mixtral-8x7b-32768
                   gemma-7b-it)))
 
-;; Package to share status in emacs using Discord Rich Presence
 (setq elcord-editor-icon "emacs_material_icon")
 (elcord-mode 1)
