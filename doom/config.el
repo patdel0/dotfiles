@@ -28,7 +28,6 @@
 (map! :leader "d e r" #'dap-ui-expressions-remove :desc "Debugger Expression Remove")
 (map! :leader "d b b" #'dap-ui-breakpoints-browse :desc "Debugger Breakpoints Browse")
 (map! :leader "d b c" #'dap-breakpoint-delete-all :desc "Debugger Breakpoint Clear")
-(map! :leader "d b c" #'dap-breakpoint-delete-all :desc "Debugger Breakpoint Clear")
 
 (defun java-eshell()
   (interactive)
