@@ -24,6 +24,7 @@
 
 ;; Documentation search
 (package! devdocs)
+(package! tldr)
 
 ;; dotenv files
 (package! s)
@@ -33,7 +34,6 @@
 
 ;; Discord
 (package! elcord)
-
 
 ;; LSP setup
 (package! lsp-mode)
