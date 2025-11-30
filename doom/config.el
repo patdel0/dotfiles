@@ -13,6 +13,7 @@
 (add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
+(add-hook! 'java-mode-hook #'lsp)
 
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
 (map! :leader "d s" #'dap-debug :desc "Debugger start")
@@ -42,6 +43,14 @@
     (eshell-send-input)))
 
 (map! :leader "j e" #'java-eshell :desc "[J]ava [e]xecute code")
+
+(setenv "NVM_DIR" (expand-file-name "~/.nvm"))
+(let ((node-path (concat (getenv "NVM_DIR") "/versions/node/v25.2.1/bin")))
+  (setenv "PATH" (concat node-path ":" (getenv "PATH")))
+  (setq exec-path (cons node-path exec-path)))
+
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook! 'web-mode-hook #'lsp)
 
 (add-hook! 'eshell-first-time-mode-hook
            (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))

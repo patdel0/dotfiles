@@ -100,6 +100,21 @@ Runs the file that is currently open in the buffer in an Eshell instance
 (map! :leader "j e" #'java-eshell :desc "[J]ava [e]xecute code")
 #+end_src
 
+*** Node
+**** Nvm
+#+begin_src emacs-lisp :tangle yes
+(setenv "NVM_DIR" (expand-file-name "~/.nvm"))
+(let ((node-path (concat (getenv "NVM_DIR") "/versions/node/v25.2.1/bin")))
+  (setenv "PATH" (concat node-path ":" (getenv "PATH")))
+  (setq exec-path (cons node-path exec-path)))
+#+end_src
+*** TypeScript
+**** LSP
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook! 'web-mode-hook #'lsp)
+#+end_src
+
 ** Eshell
 #+begin_src emacs-lisp :tangle yes
 (add-hook! 'eshell-first-time-mode-hook

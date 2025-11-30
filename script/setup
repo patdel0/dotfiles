@@ -2,7 +2,8 @@
 
 sudo apt update
 sudo apt upgrade
-sudo apt install ripgrep xclip cmake gcc python3 python3-pip libtool libtool-bin xdotool vlc nodejs npm mu4e maildir-utils pandoc anki mysql-server curl openjdk-21-jdk
+sudo apt install ripgrep xclip cmake gcc python3 python3-pip libtool libtool-bin xdotool vlc nodejs npm mu4e \
+    maildir-utils pandoc anki mysql-server curl openjdk-21-jdk
 
 # Doom Emacs
 if ! type emacs; then
@@ -10,6 +11,9 @@ if ! type emacs; then
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
     ~/.config/emacs/bin/doom install
 fi
+
+# node version manager
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
 # Create symlinks
 current_directory=$(pwd)
