@@ -61,9 +61,8 @@
 (add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
-(add-hook! 'java-mode-hook #'lsp)
+(add-hook! 'java-mode-hook #'lsp-deferred)
 #+end_src
-
 **** Debugging
 #+begin_src emacs-lisp :tangle yes
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")

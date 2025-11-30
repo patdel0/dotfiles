@@ -13,7 +13,7 @@
 (add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
-(add-hook! 'java-mode-hook #'lsp)
+(add-hook! 'java-mode-hook #'lsp-deferred)
 
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
 (map! :leader "d s" #'dap-debug :desc "Debugger start")
