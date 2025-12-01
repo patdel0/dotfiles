@@ -153,14 +153,17 @@ Runs the file that is currently open in the buffer in an Eshell instance
 *** General
 #+begin_src emacs-lisp :tangle yes
 (setq org-directory "~/org/")
-#+end_src
-*** Keymaps
-#+begin_src emacs-lisp :tangle yes
+
+;; Keymaps
 (map! :leader (:prefix "t" :desc "[T]angle [O]rg file" "o" 'org-babel-tangle))
 #+end_src
+*** Anki
+#+begin_src emacs-lisp :tangle yes
+(use-package! anki-editor)
 
-#+RESULTS:
-: org-babel-tangle
+;; Keymaps
+(map! :leader "n p" 'anki-editor-push-notes :desc "Push Anki notes" )
+#+end_src
 
 ** Music
 *** eradio
@@ -228,7 +231,7 @@ Install package to share status in emacs using Discord Rich Presence
 (elcord-mode 1)
 #+end_src
 
-* Manual execution
+* Manual settings
 ** Swapping caps for escape
 This needs to be done in $HOME/.profile: =/usr/bin/setxkbmap -option "caps:swapescape"=
 Or C-c C-c in the code block below:
@@ -248,3 +251,6 @@ emacsclient --eval "(emacs-everywhere)"
 #+end_src
 
 #+RESULTS:
+** AnkiConnect
+Install the AnkiConnect addon.
+*Code:* 2055492159

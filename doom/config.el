@@ -71,7 +71,13 @@
 
 (setq org-directory "~/org/")
 
+;; Keymaps
 (map! :leader (:prefix "t" :desc "[T]angle [O]rg file" "o" 'org-babel-tangle))
+
+(use-package! anki-editor)
+
+;; Keymaps
+(map! :leader "n p" 'anki-editor-push-notes :desc "Push Anki notes" )
 
 (eradio-play "https://somafm.com/bossa256.pls")
 

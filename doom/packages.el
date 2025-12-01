@@ -13,6 +13,9 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 
+;; Anki
+(package! anki-editor)
+
 ;; Music
 (package! eradio)
 
