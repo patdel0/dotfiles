@@ -135,8 +135,6 @@ Runs the file that is currently open in the buffer in an Eshell instance
 (modify-frame-parameters nil '((undecorated . t) (skip-taskbar . t)))
 #+end_src
 
-#+RESULTS:
-
 ** Emacs everywhere
 
 #+begin_src emacs-lisp :tangle yes
@@ -157,6 +155,20 @@ Runs the file that is currently open in the buffer in an Eshell instance
 ;; Keymaps
 (map! :leader (:prefix "t" :desc "[T]angle [O]rg file" "o" 'org-babel-tangle))
 #+end_src
+**** Fold drawers by default
+Ensures the targeted drawers are always collapsed when opening the file.
+#+begin_src emacs-lisp :tangle yes :results none
+(setq org-drawers '("PROPERTIES" "LOGBOOK"))
+
+(defun org-refold-drawers()
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "^:\\(PROPERTIES\\|LOGBOOK\\):" nil t)
+      (org-flag-drawer t))))
+
+(add-hook! 'org-cycle-hook 'org-refold-drawers)
+#+end_src
+
 *** Anki
 #+begin_src emacs-lisp :tangle yes
 (use-package! anki-editor)
@@ -250,7 +262,6 @@ This needs to be set to a keybind in your system
 emacsclient --eval "(emacs-everywhere)"
 #+end_src
 
-#+RESULTS:
 ** AnkiConnect
 Install the AnkiConnect addon.
 *Code:* 2055492159

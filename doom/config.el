@@ -74,6 +74,16 @@
 ;; Keymaps
 (map! :leader (:prefix "t" :desc "[T]angle [O]rg file" "o" 'org-babel-tangle))
 
+(setq org-drawers '("PROPERTIES" "LOGBOOK"))
+
+(defun org-refold-drawers()
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "^:\\(PROPERTIES\\|LOGBOOK\\):" nil t)
+      (org-flag-drawer t))))
+
+(add-hook! 'org-cycle-hook 'org-refold-drawers)
+
 (use-package! anki-editor)
 
 ;; Keymaps
