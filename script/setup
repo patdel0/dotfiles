@@ -27,4 +27,4 @@ echo "Sym links created!"
 $HOME/.config/emacs/bin/doom sync
 
 echo "Create example .env file"
-mv .env-example .env
+cp .env-example .env
