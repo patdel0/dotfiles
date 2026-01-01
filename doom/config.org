@@ -265,3 +265,7 @@ emacsclient --eval "(emacs-everywhere)"
 ** AnkiConnect
 Install the AnkiConnect addon.
 *Code:* 2055492159
+** Setting up forge
+1. Create a personal token in GitHub with Issue and Pull Request permissions
+2. Create =~/.authinfo=
+3. Add the following to the file: =machine api.github.com login <YOUR_GITHUB_USERNAME>^forge password <YOUR_GITHUB_TOKEN>=
