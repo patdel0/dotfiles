@@ -51,7 +51,7 @@
 
 *** Confirm the envars are being loaded
 #+begin_src emacs-lisp
-;; (getenv "GROQ_API_KEY")
+;; (getenv "GPTEL_API_KEY")
 #+end_src
 
 ** Coding
@@ -220,19 +220,11 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
 #+begin_src emacs-lisp :tangle yes
 (use-package! gptel)
 (setq gptel-default-mode 'org-mode)
-(setq gptel-model 'llama-3.3-70b-versatile
-      gptel-backend
-      (gptel-make-openai "Groq"
-        :host "api.groq.com"
-        :endpoint "/openai/v1/chat/completions"
-        :stream t
-        :key (getenv "GROQ_API_KEY") ;can be a function that returns the key
-        :models '(llama-3.3-70b-versatile
-                  llama-3.1-8b-instant
-                  llama3-70b-8192
-                  llama3-8b-8192
-                  mixtral-8x7b-32768
-                  gemma-7b-it)))
+(setq
+ gptel-model 'gemini-flash-latest
+ gptel-backend (gptel-make-gemini "Gemini"
+                 :key (getenv "GPTEL_API_KEY")
+                 :stream t))
 #+end_src
 
 ** Discord
