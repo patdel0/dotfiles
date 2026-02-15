@@ -8,7 +8,7 @@
               "Loading project-specific .env..."
               (dotenv-update-project-env (projectile-project-root)))))
 
-(getenv "GPTEL_API_KEY")
+;; (getenv "GPTEL_API_KEY")
 
 (add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
@@ -89,7 +89,7 @@
 ;; Keymaps
 (map! :leader "n p" 'anki-editor-push-notes :desc "Push Anki notes" )
 
-(eradio-play "https://somafm.com/bossa256.pls")
+;; (eradio-play "https://somafm.com/bossa256.pls")
 
 (map! :leader (:prefix ("r" . "eradio") :desc "Play a radio channel" "p" 'eradio-play))
 (map! :leader (:prefix ("r" . "eradio") :desc "Stop the radio player" "s" 'eradio-stop))

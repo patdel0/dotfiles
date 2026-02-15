@@ -182,7 +182,7 @@ Ensures the targeted drawers are always collapsed when opening the file.
 **** Startup
 This autoplays the radio when emacs starts up for the first time.
 #+begin_src emacs-lisp :tangle yes
-(eradio-play "https://somafm.com/bossa256.pls")
+;; (eradio-play "https://somafm.com/bossa256.pls")
 #+end_src
 
 **** Keymaps
@@ -247,6 +247,8 @@ Alternatively, set up the startup application in your Distro settings:
 #+begin_src bash
 /usr/bin/setxkbmap -option "caps:swapescape"
 #+end_src
+
+#+RESULTS:
 
 ** Emacs everywhere
 This needs to be set to a keybind in your system
