@@ -55,6 +55,8 @@
 (add-hook! 'eshell-first-time-mode-hook
            (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
 
+(setq vterm-shell "/usr/bin/zsh")
+
 (setq doom-theme 'doom-one)
 
 (setq display-line-numbers-type 'relative)

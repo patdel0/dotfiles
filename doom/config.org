@@ -120,6 +120,14 @@ Runs the file that is currently open in the buffer in an Eshell instance
 (add-hook! 'eshell-first-time-mode-hook
            (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
 #+end_src
+** Default shell
+#+begin_src emacs-lisp :tangle yes
+(setq vterm-shell "/usr/bin/zsh")
+#+end_src
+
+#+RESULTS:
+: /usr/bin/zsh
+
 ** Theme settings
 *** Theme color scheme
 #+begin_src emacs-lisp :tangle yes
