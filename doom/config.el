@@ -57,7 +57,7 @@
 
 (setq vterm-shell "/usr/bin/zsh")
 
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-ayu-dark)
 
 (setq display-line-numbers-type 'relative)
 
