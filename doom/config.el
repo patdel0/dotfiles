@@ -1,14 +1,15 @@
 (use-package! dotenv
   :config
   ;; Load .env from ~/code/github.com/dotfiles/.env on startup
-  (dotenv-update-project-env "~/code/github.com/dotfiles/")
+  ;; The trailing t is `override': dotenv skips any key that is already set,
+  ;; and Doom's generated env file (~/.config/emacs/.local/etc/init.d/) can
+  ;; pre-define these as empty strings, which counts as "already set".
+  (dotenv-update-project-env "~/code/github.com/dotfiles/" t)
 
   (add-hook 'projectile-after-switch-project-hook
             (lambda ()
               "Loading project-specific .env..."
-              (dotenv-update-project-env (projectile-project-root)))))
-
-;; (getenv "GPTEL_API_KEY")
+              (dotenv-update-project-env (projectile-project-root) t))))
 
 (add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
@@ -53,11 +54,11 @@
 (add-hook! 'web-mode-hook #'lsp)
 
 (add-hook! 'eshell-first-time-mode-hook
-           (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
+  (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
 
 (setq vterm-shell "/usr/bin/zsh")
 
-(setq doom-theme 'doom-ayu-dark)
+(setq doom-theme 'doom-nord)
 
 (setq display-line-numbers-type 'relative)
 
@@ -115,7 +116,9 @@
 (setq
  gptel-model 'gemini-flash-latest
  gptel-backend (gptel-make-gemini "Gemini"
-                 :key (getenv "GPTEL_API_KEY")
+                 ;; A function is resolved per request, so the key is read
+                 ;; after .env is loaded and picks up later edits to it.
+                 :key (lambda () (getenv "GPTEL_API_KEY"))
                  :stream t))
 
 (setq elcord-editor-icon "emacs_material_icon")

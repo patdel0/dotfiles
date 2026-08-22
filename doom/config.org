@@ -41,17 +41,21 @@
 (use-package! dotenv
   :config
   ;; Load .env from ~/code/github.com/dotfiles/.env on startup
-  (dotenv-update-project-env "~/code/github.com/dotfiles/")
+  ;; The trailing t is `override': dotenv skips any key that is already set,
+  ;; and Doom's generated env file (~/.config/emacs/.local/etc/init.d/) can
+  ;; pre-define these as empty strings, which counts as "already set".
+  (dotenv-update-project-env "~/code/github.com/dotfiles/" t)
 
   (add-hook 'projectile-after-switch-project-hook
             (lambda ()
               "Loading project-specific .env..."
-              (dotenv-update-project-env (projectile-project-root)))))
+              (dotenv-update-project-env (projectile-project-root) t))))
 #+end_src
 
 *** Confirm the envars are being loaded
-#+begin_src emacs-lisp
-;; (getenv "GPTEL_API_KEY")
+Scratch block: =C-c C-c= it to check. Not tangled.
+#+begin_src emacs-lisp :tangle no
+(getenv "GPTEL_API_KEY")
 #+end_src
 
 ** Coding
@@ -231,7 +235,9 @@ Leverages =counsel-web-search= to open a mini-buffer at the bottom of the screen
 (setq
  gptel-model 'gemini-flash-latest
  gptel-backend (gptel-make-gemini "Gemini"
-                 :key (getenv "GPTEL_API_KEY")
+                 ;; A function is resolved per request, so the key is read
+                 ;; after .env is loaded and picks up later edits to it.
+                 :key (lambda () (getenv "GPTEL_API_KEY"))
                  :stream t))
 #+end_src
 

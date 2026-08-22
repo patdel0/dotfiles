@@ -2,7 +2,8 @@
 
 sudo apt update
 sudo apt upgrade
-sudo apt install ripgrep xclip cmake gcc python3 python3-pip libtool libtool-bin xdotool vlc nodejs npm mu4e \
+# npm is omitted: the NodeSource `nodejs` package bundles it and conflicts with Ubuntu's npm
+sudo apt install ripgrep xclip cmake gcc python3 python3-pip libtool libtool-bin xdotool vlc nodejs mu4e \
     maildir-utils pandoc anki mysql-server curl openjdk-21-jdk zsh wordnet -y
 
 # Doom Emacs
@@ -34,5 +35,8 @@ echo "Sym links created!"
 
 $HOME/.config/emacs/bin/doom sync
 
-echo "Create example .env file"
-cp .env-example .env
+# Don't clobber a .env that already holds real secrets
+if [ ! -f .env ]; then
+    echo "Creating .env from .env-example"
+    cp .env-example .env
+fi
