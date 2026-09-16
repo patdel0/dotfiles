@@ -13,6 +13,19 @@ if ! type emacs; then
     ~/.config/emacs/bin/doom install
 fi
 
+# Docker
+if ! docker compose version &> /dev/null; then
+    sudo snap install docker
+
+    sudo addgroup --system docker
+    sudo adduser $USER docker
+
+    sudo snap disable docker
+    sudo snap enable docker
+
+    echo "Installed docker - log out and back in to use it without sudo"
+fi
+
 # node version manager
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
