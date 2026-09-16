@@ -140,6 +140,13 @@ binary entirely, so lsp-mode's auto-install (which grabs latest) breaks ts-ls.
 #+RESULTS:
 : /usr/bin/zsh
 
+** Fill column indicator
+Vertical line marking the 80-character line limit.
+#+begin_src emacs-lisp :tangle yes
+(setq-default fill-column 80)
+(add-hook! 'prog-mode-hook #'display-fill-column-indicator-mode)
+#+end_src
+
 ** Theme settings
 *** Theme color scheme
 #+begin_src emacs-lisp :tangle yes
