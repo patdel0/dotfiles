@@ -6,6 +6,8 @@ setopt autocd notify
 bindkey -e
 # End of lines configured by zsh-newuser-install
 
+export PATH="$HOME/.npm-global/bin:$PATH"
+
 # antigen - zsh plugin installer
 source $HOME/antigen.zsh
 antigen use oh-my-zsh

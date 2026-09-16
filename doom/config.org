@@ -119,6 +119,14 @@ Runs the file that is currently open in the buffer in an Eshell instance
 (add-hook! 'web-mode-hook #'lsp)
 #+end_src
 
+Use the project's local `typescript` (node_modules) for tsserver instead of
+lsp-mode's own auto-managed copy: TypeScript 7.x dropped the `tsserver`
+binary entirely, so lsp-mode's auto-install (which grabs latest) breaks ts-ls.
+
+#+begin_src emacs-lisp :tangle yes
+(setq lsp-clients-typescript-prefer-use-project-ts-server t)
+#+end_src
+
 ** Eshell
 #+begin_src emacs-lisp :tangle yes
 (add-hook! 'eshell-first-time-mode-hook
