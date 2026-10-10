@@ -11,10 +11,16 @@
               "Loading project-specific .env..."
               (dotenv-update-project-env (projectile-project-root) t))))
 
-(add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-deferred)
+
+(with-eval-after-load 'lsp-java-boot
+  (define-advice lsp-java-boot--ls-command (:filter-return (cmd) add-opens)
+    (let ((jar-tail (member "-jar" cmd)))
+      (append (seq-take-while (lambda (arg) (not (equal arg "-jar"))) cmd)
+              '("--add-opens=java.base/java.lang=ALL-UNNAMED")
+              jar-tail))))
 
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
 (map! :leader "d s" #'dap-debug :desc "Debugger start")
@@ -53,12 +59,26 @@
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
 (add-hook! 'web-mode-hook #'lsp)
 
+(setq lsp-clients-typescript-prefer-use-project-ts-server t)
+
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-code-indent-offset)))
+
+(setq lsp-disabled-clients '(eslint boot-ls))
+
 (add-hook! 'eshell-first-time-mode-hook
-  (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
+           (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
 
 (setq vterm-shell "/usr/bin/zsh")
 
-(setq doom-theme 'doom-nord)
+(setq-default fill-column 80)
+(add-hook! 'prog-mode-hook #'display-fill-column-indicator-mode)
+
+(setq doom-theme 'doom-ayu-dark)
 
 (setq display-line-numbers-type 'relative)
 
