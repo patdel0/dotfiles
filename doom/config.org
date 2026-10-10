@@ -62,10 +62,20 @@ Scratch block: =C-c C-c= it to check. Not tangled.
 *** Java
 **** Lsp
 #+begin_src emacs-lisp :tangle yes
-(add-hook! 'java-mode #'lsp)
 (add-hook! 'lsp-mode-hook #'lsp-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-java-boot-lens-mode)
 (add-hook! 'java-mode-hook #'lsp-deferred)
+#+end_src
+
+boot-ls hover hangs on JDK 17+ (cglib needs =java.lang= opened). lsp-java has no JVM args option, so the flag is inserted before =-jar=.
+
+#+begin_src emacs-lisp :tangle yes
+(with-eval-after-load 'lsp-java-boot
+  (define-advice lsp-java-boot--ls-command (:filter-return (cmd) add-opens)
+    (let ((jar-tail (member "-jar" cmd)))
+      (append (seq-take-while (lambda (arg) (not (equal arg "-jar"))) cmd)
+              '("--add-opens=java.base/java.lang=ALL-UNNAMED")
+              jar-tail))))
 #+end_src
 **** Debugging
 #+begin_src emacs-lisp :tangle yes
