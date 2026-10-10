@@ -151,6 +151,15 @@ lsp-mode has no web-mode entry in its indent table and defaults to 4 for tsserve
   (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-code-indent-offset)))
 #+end_src
 
+**** LSP clients
+ESLint is disabled: running it as a second LSP client next to ts-ls with fix-on-save corrupted files (conflicting edits on save). Run =eslint --fix .= manually before commit.
+
+boot-ls is disabled: lsp-mode blocks Emacs while it connects, and slow cold starts leave lsp-mode off. jdtls covers Java. Remove =boot-ls= to re-enable.
+
+#+begin_src emacs-lisp :tangle yes
+(setq lsp-disabled-clients '(eslint boot-ls))
+#+end_src
+
 ** Eshell
 #+begin_src emacs-lisp :tangle yes
 (add-hook! 'eshell-first-time-mode-hook
