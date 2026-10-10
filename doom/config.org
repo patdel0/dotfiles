@@ -129,12 +129,26 @@ Runs the file that is currently open in the buffer in an Eshell instance
 (add-hook! 'web-mode-hook #'lsp)
 #+end_src
 
+***** Version preference
 Use the project's local `typescript` (node_modules) for tsserver instead of
 lsp-mode's own auto-managed copy: TypeScript 7.x dropped the `tsserver`
 binary entirely, so lsp-mode's auto-install (which grabs latest) breaks ts-ls.
 
 #+begin_src emacs-lisp :tangle yes
 (setq lsp-clients-typescript-prefer-use-project-ts-server t)
+#+end_src
+***** Indentation rules
+#+begin_src emacs-lisp :tangle yes
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+#+end_src
+
+lsp-mode has no web-mode entry in its indent table and defaults to 4 for tsserver formatting. Map it to =web-mode-code-indent-offset=.
+
+#+begin_src emacs-lisp :tangle yes
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-code-indent-offset)))
 #+end_src
 
 ** Eshell
