@@ -22,6 +22,11 @@
               '("--add-opens=java.base/java.lang=ALL-UNNAMED")
               jar-tail))))
 
+(setq lsp-modeline-code-actions-enable nil)
+
+(after! lsp-java
+  (add-to-list 'lsp-java-vmargs "-Djava.util.concurrent.ForkJoinPool.common.parallelism=64"))
+
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
 (map! :leader "d s" #'dap-debug :desc "Debugger start")
 (map! :leader "d r" #'dap-debug-restart :desc "Debugger restart")
@@ -69,6 +74,12 @@
   (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-code-indent-offset)))
 
 (setq lsp-disabled-clients '(eslint boot-ls))
+
+(after! lsp-ui
+  (setq lsp-ui-doc-enable t
+        lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-delay 0.5
+        lsp-ui-doc-position 'at-point))
 
 (add-hook! 'eshell-first-time-mode-hook
            (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))

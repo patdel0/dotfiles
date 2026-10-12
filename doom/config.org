@@ -77,6 +77,18 @@ boot-ls hover hangs on JDK 17+ (cglib needs =java.lang= opened). lsp-java has no
               '("--add-opens=java.base/java.lang=ALL-UNNAMED")
               jar-tail))))
 #+end_src
+**** Hang workaround
+jdtls freezes under typing: the =codeAction= handler holds a global lock while waiting on a client =workspace/configuration= reply, and every other codeAction piles up behind it, occupying the JVM common pool. Type-index searches (completion, hover) need that pool, so all requests time out.
+
+Mitigation: fewer codeAction requests (no modeline code actions) and a larger common pool so searches can still run.
+
+#+begin_src emacs-lisp :tangle yes
+(setq lsp-modeline-code-actions-enable nil)
+
+(after! lsp-java
+  (add-to-list 'lsp-java-vmargs "-Djava.util.concurrent.ForkJoinPool.common.parallelism=64"))
+#+end_src
+
 **** Debugging
 #+begin_src emacs-lisp :tangle yes
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
@@ -158,6 +170,17 @@ boot-ls is disabled: lsp-mode blocks Emacs while it connects, and slow cold star
 
 #+begin_src emacs-lisp :tangle yes
 (setq lsp-disabled-clients '(eslint boot-ls))
+#+end_src
+
+*** Hover docs
+Show hover docs in a =lsp-ui-doc= popup on cursor hold instead of the raw =*lsp-help*= buffer. =K= still opens the buffer.
+
+#+begin_src emacs-lisp :tangle yes
+(after! lsp-ui
+  (setq lsp-ui-doc-enable t
+        lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-delay 0.5
+        lsp-ui-doc-position 'at-point))
 #+end_src
 
 ** Eshell
