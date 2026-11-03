@@ -25,7 +25,10 @@
 (setq lsp-modeline-code-actions-enable nil)
 
 (after! lsp-java
-  (add-to-list 'lsp-java-vmargs "-Djava.util.concurrent.ForkJoinPool.common.parallelism=64"))
+  (add-to-list 'lsp-java-vmargs "-Djava.util.concurrent.ForkJoinPool.common.parallelism=64")
+  ;; JDTLS defaults to Eclipse formatter settings; match the project's width.
+  (setq lsp-java-format-tab-size (lambda () 2)
+        lsp-java-format-insert-spaces (lambda () t)))
 
 (map! :leader "d t" #'dap-breakpoint-toggle :desc "Debugger toggle breakpoint")
 (map! :leader "d s" #'dap-debug :desc "Debugger start")
@@ -41,6 +44,15 @@
 (map! :leader "d e r" #'dap-ui-expressions-remove :desc "Debugger Expression Remove")
 (map! :leader "d b b" #'dap-ui-breakpoints-browse :desc "Debugger Breakpoints Browse")
 (map! :leader "d b c" #'dap-breakpoint-delete-all :desc "Debugger Breakpoint Clear")
+
+(after! lsp-java
+  (require 'dap-java)
+  (map! :map java-mode-map
+        :localleader
+        (:prefix ("t" . "test")
+         :desc "Run test method"   "s" #'dap-java-run-test-method
+         :desc "Run test class"    "t" #'dap-java-run-test-class
+         :desc "Debug test method" "d" #'dap-java-debug-test-method)))
 
 (defun java-eshell()
   (interactive)
@@ -61,25 +73,36 @@
   (setenv "PATH" (concat node-path ":" (getenv "PATH")))
   (setq exec-path (cons node-path exec-path)))
 
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-(add-hook! 'web-mode-hook #'lsp)
+
 
 (setq lsp-clients-typescript-prefer-use-project-ts-server t)
 
-(setq web-mode-code-indent-offset 2)
-(setq web-mode-markup-indent-offset 2)
-(setq web-mode-css-indent-offset 2)
+(setq typescript-ts-mode-indent-offset 2)
+
+;; Keep Emacs indentation and LSP formatting on the project's two-space,
+;; spaces-only convention.
+(defun my/typescript-indentation-style ()
+  (setq-local indent-tabs-mode nil
+              tab-width 2))
+(add-hook 'typescript-ts-mode-hook #'my/typescript-indentation-style)
+(add-hook 'tsx-ts-mode-hook #'my/typescript-indentation-style)
 
 (with-eval-after-load 'lsp-mode
-  (add-to-list 'lsp--formatting-indent-alist '(web-mode . web-mode-code-indent-offset)))
+  (add-to-list 'lsp--formatting-indent-alist
+               '(tsx-ts-mode . typescript-ts-mode-indent-offset)))
+
+(defun my/java-indentation-style ()
+  (setq-local indent-tabs-mode nil
+              tab-width 2
+              c-basic-offset 2))
+(add-hook 'java-mode-hook #'my/java-indentation-style)
 
 (setq lsp-disabled-clients '(eslint boot-ls))
 
 (after! lsp-ui
-  (setq lsp-ui-doc-enable t
-        lsp-ui-doc-show-with-cursor t
-        lsp-ui-doc-delay 0.5
-        lsp-ui-doc-position 'at-point))
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-doc-show-with-cursor nil
+        lsp-ui-doc-show-with-mouse nil))
 
 (add-hook! 'eshell-first-time-mode-hook
            (eshell/alias "jenv" "~/.jenv/bin/jenv $*"))
